@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  CHAT_SOCKET_ENPOINT: '',
+  CHAT_SOCKET_ENPOINT:
+    'wss://nuaoqm1j7e.execute-api.ap-southeast-1.amazonaws.com/production',
   reconnectInterval: 5000,
 };
 

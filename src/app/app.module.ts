@@ -8,12 +8,19 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
+import { LoginComponent } from './login/login.component';
+import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { HttpClientModule } from '@angular/common/http';
 @NgModule({
-  declarations: [AppComponent, ChatModalComponent],
+  declarations: [AppComponent, ChatModalComponent, LoginComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
     MatButtonModule,
+    FormsModule,
+    CommonModule,
+    HttpClientModule,
     MatDialogModule,
     MatIconModule,
     BrowserAnimationsModule,

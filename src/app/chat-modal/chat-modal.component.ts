@@ -11,6 +11,7 @@ import {
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { PeerService } from '../services/peer.service';
 import { SocketService } from '../services/socket.service';
+import * as uuid from 'uuid';
 @Component({
   selector: 'app-chat-modal',
   templateUrl: './chat-modal.component.html',
@@ -39,7 +40,7 @@ export class ChatModalComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngOnDestroy() {
-    this.socketService.close(true);
+    // this.socketService.close(true);
   }
 
   init() {
