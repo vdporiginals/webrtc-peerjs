@@ -26,16 +26,16 @@ export class AppComponent implements OnInit {
     this.uid = this.token.ProviderId;
     this.socketService.connect();
     this.socketService.messages$.subscribe((res) => {
-      console.log(res);
       try {
         let result = JSON.parse(res);
+        console.log(result);
         this.partnerId = result.peerId;
-        return this.openModal();
+        if (this.partnerId) return this.openModal();
       } catch (e) {
         return console.log(e);
       } finally {
         this.partnerId = res.peerId;
-        return this.openModal();
+        if (this.partnerId) return this.openModal();
       }
     });
   }

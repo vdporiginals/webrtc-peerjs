@@ -5,7 +5,7 @@ import { environment } from 'src/environments/environment';
 import { LocalStorageService } from './localstorage.service';
 export const WS_ENDPOINT = environment.CHAT_SOCKET_ENPOINT;
 export const RECONNECT_INTERVAL = environment.reconnectInterval;
-import Peer from 'peerjs';
+import Peer, { DataConnection } from 'peerjs';
 // create a WS instance, listening on port 1234 on localhost
 
 @Injectable({
@@ -13,6 +13,7 @@ import Peer from 'peerjs';
 })
 export class PeerService {
   peer: Peer;
+  dataConnection: DataConnection;
   myStream: MediaStream;
   myEl: HTMLMediaElement;
   partnerEl: HTMLMediaElement;
@@ -75,6 +76,9 @@ export class PeerService {
 
   wait() {
     this.peer.on('call', (call) => {
+      call.on('close', function () {
+        alert('The videocall has finished');
+      });
       call.answer(this.myStream);
       call.on('stream', (stream) => {
         this.partnerEl.srcObject = stream;
@@ -109,5 +113,13 @@ export class PeerService {
     // if (typeof error !== 'undefined') {
     //   console.error(error);
     // }
+  }
+
+  disconnect() {
+    // this.dataConnection.close();
+    this.peer.destroy();
+    this.peer.disconnect();
+    this.myStream.getVideoTracks()[0].stop();
+    // this.
   }
 }

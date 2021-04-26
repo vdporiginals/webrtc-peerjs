@@ -26,6 +26,7 @@ export class ChatModalComponent implements OnInit, OnDestroy, AfterViewInit {
   myEl: HTMLMediaElement;
   partnerEl: HTMLMediaElement;
   peer: any;
+  isAnswerClick: boolean;
   constructor(
     private socketService: SocketService,
     private peerService: PeerService,
@@ -33,23 +34,36 @@ export class ChatModalComponent implements OnInit, OnDestroy, AfterViewInit {
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    if (this.data.partnerId) {
+      this.isAnswerClick = false;
+    } else {
+      this.isAnswerClick = true;
+    }
+  }
 
   ngAfterViewInit() {
+    console.log(this.data.partnerId);
+    // if (!this.data.partnerId) {
     this.init();
+    // }
   }
 
   ngOnDestroy() {
+    this.peerService.disconnect()
     // this.socketService.close(true);
   }
 
   init() {
+    console.log(this.data.userId);
+
     this.myEl = this.videoUser.nativeElement;
     this.partnerEl = this.videoPartner.nativeElement;
     this.peerService.init(this.data.userId, this.myEl, this.partnerEl);
   }
 
   call() {
+    this.isAnswerClick = true;
     this.peerService.call(this.data.partnerId);
     this.swapVideo('my-video');
   }

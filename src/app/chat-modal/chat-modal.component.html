@@ -1,27 +1,19 @@
-<video
-  [ngClass]="{
+<video [ngClass]="{
     'top-video': topVideoFrame === 'my-video',
     'main-video': topVideoFrame != 'my-video'
-  }"
-  autoplay
-  playsinline
-  #videoUser
-  (click)="swapVideo('my-video')"
-></video>
-<video
-  [ngClass]="{
+  }" autoplay playsinline videoUser #videoUser (click)="swapVideo('my-video')"></video>
+<video [ngClass]="{
     'top-video': topVideoFrame === 'partner-video',
     'main-video': topVideoFrame != 'partner-video'
-  }"
-  autoplay
-  playsinline
-  #videoPartner
-  (click)="swapVideo('partner-video')"
-></video>
+  }" autoplay playsinline videoPartner #videoPartner (click)="swapVideo('partner-video')"></video>
 <div class="button_wrap">
-  <button (click)="closeModal()">
-    <mat-icon aria-hidden="false" aria-label="Example home icon"
-      >call_end
+  <button (click)="closeModal()" *ngIf="isAnswerClick">
+    <mat-icon aria-hidden="false" aria-label="Example home icon">call_end
+    </mat-icon>
+  </button>
+  <button [style.background-color]="'green'" (click)="call()" *ngIf="!isAnswerClick">
+    Trả lời
+    <mat-icon aria-hidden="false" aria-label="Example home icon">call_start
     </mat-icon>
   </button>
 </div>
