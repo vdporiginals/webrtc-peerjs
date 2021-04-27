@@ -15,7 +15,8 @@ export class AppComponent implements OnInit {
   uid: string;
   partnerId: string;
   token = this.storage.getToken();
-  selectedUser = 17;
+  selectedUser = 7;
+  receiveUser;
   constructor(
     private modal: MatDialog,
     private peerService: PeerService,
@@ -32,6 +33,9 @@ export class AppComponent implements OnInit {
       try {
         let result = JSON.parse(res);
         console.log(result);
+        if (result.senderUserProfileId) {
+          this.receiveUser = result.senderUserProfileId;
+        }
         this.partnerId = result.peerId;
         if (result.action == 'videoCallDisconnect') {
           this.modal.closeAll();
@@ -55,15 +59,8 @@ export class AppComponent implements OnInit {
 
   openModal(type?) {
     const myId = uuid.v4();
-    this.modal.open(ChatModalComponent, {
-      width: '100%',
-      height: '100%',
-      data: {
-        partnerId: this.partnerId,
-        userId: myId,
-      },
-    });
     if (type == 'abc') {
+      this.receiveUser = this.selectedUser;
       this.socketService.sendMessage({
         action: 'callRequest',
         recipientUserProfileId: this.selectedUser,
@@ -72,6 +69,17 @@ export class AppComponent implements OnInit {
         type: 1,
       });
     }
-    this.modal.afterOpened.subscribe(() => {});
+    let modal = this.modal.open(ChatModalComponent, {
+      width: '100%',
+      height: '100%',
+      data: {
+        partnerId: this.partnerId,
+        userId: myId,
+        receiveUid: this.receiveUser,
+      },
+    });
+    modal.afterClosed().subscribe(() => {
+      // this.peerService.disconnect();
+    });
   }
 }

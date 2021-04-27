@@ -6,7 +6,7 @@ import {
   Input,
   OnDestroy,
   OnInit,
-  ViewChild
+  ViewChild,
 } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { PeerService } from '../services/peer.service';
@@ -51,7 +51,7 @@ export class ChatModalComponent implements OnInit, OnDestroy, AfterViewInit {
   ngOnDestroy() {
     this.socketService.sendMessage({
       action: 'videoCallDisconnect',
-      recipientUserProfileId: 17,
+      recipientUserProfileId: this.data.receiveUid,
       messageId: 20,
     });
     this.peerService.disconnect();
