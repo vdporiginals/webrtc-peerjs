@@ -30,11 +30,19 @@ export class AppComponent implements OnInit {
         let result = JSON.parse(res);
         console.log(result);
         this.partnerId = result.peerId;
+        if (result.action == 'videoCallDisconnect') {
+          this.modal.closeAll();
+        }
+
         if (this.partnerId) return this.openModal();
       } catch (e) {
         return console.log(e);
       } finally {
         this.partnerId = res.peerId;
+        if (res.action == 'videoCallDisconnect') {
+          this.modal.closeAll();
+        }
+
         if (this.partnerId) return this.openModal();
       }
     });

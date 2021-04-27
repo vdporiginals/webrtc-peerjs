@@ -39,6 +39,7 @@ export class LoginComponent implements OnInit {
       )
       .subscribe((res) => {
         localStorage.setItem('access_token', JSON.stringify(res));
+        window.location.reload();
       });
   }
 }

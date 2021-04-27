@@ -1,11 +1,11 @@
 /* eslint-disable max-len */
 /* eslint-disable @typescript-eslint/member-ordering */
 import { Injectable } from '@angular/core';
+import Peer, { DataConnection } from 'peerjs';
 import { environment } from 'src/environments/environment';
 import { LocalStorageService } from './localstorage.service';
 export const WS_ENDPOINT = environment.CHAT_SOCKET_ENPOINT;
 export const RECONNECT_INTERVAL = environment.reconnectInterval;
-import Peer, { DataConnection } from 'peerjs';
 // create a WS instance, listening on port 1234 on localhost
 
 @Injectable({

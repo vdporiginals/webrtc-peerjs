@@ -6,12 +6,11 @@ import {
   Input,
   OnDestroy,
   OnInit,
-  ViewChild,
+  ViewChild
 } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { PeerService } from '../services/peer.service';
 import { SocketService } from '../services/socket.service';
-import * as uuid from 'uuid';
 @Component({
   selector: 'app-chat-modal',
   templateUrl: './chat-modal.component.html',
@@ -50,7 +49,12 @@ export class ChatModalComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngOnDestroy() {
-    this.peerService.disconnect()
+    this.socketService.sendMessage({
+      action: 'videoCallDisconnect',
+      recipientUserProfileId: 17,
+      messageId: 20,
+    });
+    this.peerService.disconnect();
     // this.socketService.close(true);
   }
 
