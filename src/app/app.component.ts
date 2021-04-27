@@ -4,6 +4,7 @@ import { ChatModalComponent } from './chat-modal/chat-modal.component';
 import { LocalStorageService } from './services/localstorage.service';
 import { SocketService } from './services/socket.service';
 import * as uuid from 'uuid';
+import { PeerService } from './services/peer.service';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -14,8 +15,10 @@ export class AppComponent implements OnInit {
   uid: string;
   partnerId: string;
   token = this.storage.getToken();
+  selectedUser = 17;
   constructor(
     private modal: MatDialog,
+    private peerService: PeerService,
     private socketService: SocketService,
     private storage: LocalStorageService
   ) {}
@@ -32,6 +35,7 @@ export class AppComponent implements OnInit {
         this.partnerId = result.peerId;
         if (result.action == 'videoCallDisconnect') {
           this.modal.closeAll();
+          return this.peerService.disconnect();
         }
 
         if (this.partnerId) return this.openModal();
@@ -41,6 +45,7 @@ export class AppComponent implements OnInit {
         this.partnerId = res.peerId;
         if (res.action == 'videoCallDisconnect') {
           this.modal.closeAll();
+          return this.peerService.disconnect();
         }
 
         if (this.partnerId) return this.openModal();
@@ -61,8 +66,8 @@ export class AppComponent implements OnInit {
     if (type == 'abc') {
       this.socketService.sendMessage({
         action: 'callRequest',
-        recipientUserProfileId: 7,
-        createdOn: '2021-04-26 07:59:26.290',
+        recipientUserProfileId: this.selectedUser,
+        createdOn: new Date().toISOString(),
         peerId: myId,
         type: 1,
       });

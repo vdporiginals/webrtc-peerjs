@@ -28,8 +28,10 @@ export class PeerService {
   constructor(private storage: LocalStorageService) {
     this.options = {
       // not used, by default it'll use peerjs server
-      key: 'cd1ft79ro8g833di',
+      // key: 'cd1ft79ro8g833di',
       debug: 3,
+      host: '192.168.1.88',
+      port: 3001,
     };
   }
 
