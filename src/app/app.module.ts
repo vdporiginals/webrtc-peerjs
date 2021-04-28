@@ -12,8 +12,9 @@ import { LoginComponent } from './login/login.component';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
+import { HomeComponent } from './home/home.component';
 @NgModule({
-  declarations: [AppComponent, ChatModalComponent, LoginComponent],
+  declarations: [AppComponent, ChatModalComponent, LoginComponent, HomeComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
